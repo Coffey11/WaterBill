@@ -1,15 +1,42 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class Main
+{
+    public static void main(String[] args)
+    {
+        System.out.println("hello world");
+
+        String name = "Alice";
+        int gallonsUsed = 8000;
+        int customerType = 1; //1 = single family and 2 = duplex
+        double bill = 0.0;
+
+
+        if (customerType == 1) {
+            if (gallonsUsed <= 7000) {
+                bill = 13.21 + gallonsUsed * (2.04 / 1000.0);
+            } else if (gallonsUsed <= 13000) {
+                bill = 13.21 + 7000 * (2.04 / 1000.0)
+                        + (gallonsUsed - 7000) * (2.35 / 1000.0);
+            } else {
+                bill = 13.21 + 7000 * (2.04 / 1000.0)
+                        + 6000 * (2.35 / 1000.0)
+                        + (gallonsUsed - 13000) * (2.70 / 1000.0);
+            }
+        } else {
+            if (gallonsUsed <= 7000) {
+                bill = 15.51 + gallonsUsed * (1.97 / 1000.0);
+            } else if (gallonsUsed <= 13000) {
+                bill = 15.51 + 9000 * (1.97 / 1000.0)
+                        + (gallonsUsed - 9000) * (2.26 / 1000.0);
+            } else {
+                bill = 15.51 + 9000 * (1.97 / 1000.0)
+                        + 4000 * (2.26 / 1000.0)
+                        + (gallonsUsed - 13000) * (2.60 / 1000.0);
+            }
+        }
+
+        System.out.println("THe bill is " + bill);
+
     }
 }
 
-/* straight commenting on this rn */
