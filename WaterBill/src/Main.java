@@ -11,7 +11,6 @@ public class Main
         charleeCustomer.name = "Charlee";
         charleeCustomer.gallonsUsed = 8000;
         charleeCustomer.customerType = 1;
-
         charleeCustomer.calculateBill();
         System.out.println(charleeCustomer.name);
 
