@@ -6,12 +6,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Customer c = new Customer();
-        //c.setGallonsUsed(-1000000);
-        c.setName("");
-        c.customerInput();
-        c.calculateBill();
-        c.printBill();
+        Customer c = new Customer("Alice", 8000, 2);
     }
 }
 

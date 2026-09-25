@@ -24,6 +24,21 @@ public class Customer {
     private int customerType; //1 = single family and 2 = duplex
     private double bill;
 
+    public Customer() //if you overload a constructor then you have to have the default Also good for testing
+    {
+        //System.out.println("This is a customer");
+    }
+
+    public Customer(String name, int gallonsUsed, int customerType)
+    {
+        System.out.println("yay!");
+        setName(name);
+        setGallonsUsed(gallonsUsed);
+        setCustomerType(customerType);
+    }
+
+
+
     //getter - allow classes to get info
     public int getGallonsUsed()
     {
@@ -38,9 +53,7 @@ public class Customer {
         return customerType;
     }
 
-    public double getBill() {
-        return bill;
-    }
+    public double getBill() {return bill;}
 
     //setter - allows for us to set a value
     public void setGallonsUsed(int gallonsUsed)
@@ -127,3 +140,26 @@ public class Customer {
 }
 
 
+
+//day 1
+// practice user stories and prioritizing them
+// BRUTE FORCE everything in main first before even thinking about classes
+// Probably shouldnt go outside of main
+
+//create a new java repository and connect it to git BEFORE CLASS
+
+//day 2
+// extend on someone elses code and add class structure
+// CLASSES!
+// single responsiblilty (SRP)
+// getters, setters, tests (the last part just a few)
+// a couple more small tasks
+// your decision to refactor or not but try with their code
+// 2 min survey of the code you got at the end
+
+//day 3 ish
+// technical review of code on day 2
+// walk through the code with mal for a couple minutes
+// if you understand the code it shouldn't be too hard
+
+//all open note no internet
