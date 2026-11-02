@@ -1,37 +1,29 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-public class Customer {
-
-    final double SINGLE_BASE = 13.21;
-    final int SINGLE_TIER1 = 7000;
-    final double SINGLE_TIER1_COST = 2.04;
-    final int SINGLE_TIER2 = 6000;
-    final double SINGLE_TIER2_COST = 2.35;
-    final double SINGLE_TIER3_COST = 2.70;
-    final double DUPLEX_BASE = 15.51;
-    final int DUPLEX_TIER1 = 9000;
-    final double DUPLEX_TIER1_COST = 1.97;
-    final int DUPLEX_TIER2 = 4000;
-    final double DUPLEX_TIER2_COST = 2.26;
-    final double DUPLEX_TIER3_COST = 2.60;
+public abstract class Customer {
     final int TIER2_CUTOFF = 13000;
     final double GALLONS = 1000.0;
 
     private String name;
     private int gallonsUsed;
-    private int customerType; //1 = single family and 2 = duplex
+    //private int customerType; //1 = single family and 2 = duplex
     private double bill;
+
+    static private ArrayList<Customer> allCustomers = new ArrayList<Customer>();
 
     public Customer() //if you overload a constructor then you have to have the default Also good for testing
     {
-        //System.out.println("This is a customer");
+        System.out.println("This is a customer");
+        this.name = null;
+        this.gallonsUsed = 0;
     }
 
-    public Customer(String name, int gallonsUsed, int customerType)
+    public Customer(String name, int gallonsUsed)
     {
-        System.out.println("yay!");
+        System.out.println("THIS IS A CUSTOMER!!");
         setName(name);
         setGallonsUsed(gallonsUsed);
         setCustomerType(customerType);
@@ -40,6 +32,10 @@ public class Customer {
 
 
     //getter - allow classes to get info
+    static public ArrayList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+
     public int getGallonsUsed()
     {
         return gallonsUsed;
@@ -83,6 +79,11 @@ public class Customer {
         this.customerType = customerType;
     }
 
+    protected void registerCustomer()
+    {
+        allCustomers.add(this);
+    }
+
     public void customerInput(){
         InputStreamReader inputStreamReader = new InputStreamReader(System.in);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -91,7 +92,7 @@ public class Customer {
             name = bufferedReader.readLine();
 
             System.out.print("Enter Customer Type (1: SingleFamily, 2: Duplex): ");
-            setName(bufferedReader.readLine());
+            setCustomerType(Integer.parseInt(bufferedReader.readLine()));
 
             System.out.print("Enter gallons used: ");
             setGallonsUsed(Integer.parseInt(bufferedReader.readLine()));
@@ -101,40 +102,42 @@ public class Customer {
         }
     }
 
+    public abstract double calculateBill();
 
-    public void calculateBill() {
-        if (customerType == 1) {
-            if (gallonsUsed <= SINGLE_TIER1) {
-                bill = SINGLE_BASE + gallonsUsed * (SINGLE_TIER1_COST / GALLONS);
-            } else if (gallonsUsed <= TIER2_CUTOFF) {
-                bill = SINGLE_BASE + SINGLE_TIER1 * (SINGLE_TIER1_COST / GALLONS)
-                        + (gallonsUsed - SINGLE_TIER1) * (SINGLE_TIER2_COST /
-                        GALLONS);
-            } else {
-                bill = SINGLE_BASE + SINGLE_TIER1 * (SINGLE_TIER1_COST / GALLONS)
-                        + SINGLE_TIER2 * (SINGLE_TIER2_COST / GALLONS)
-                        + (gallonsUsed - TIER2_CUTOFF) * (SINGLE_TIER3_COST /
-                        GALLONS);
-            }
-        } else {
-            if (gallonsUsed <= DUPLEX_TIER1) {
-                bill = DUPLEX_BASE + gallonsUsed * (DUPLEX_TIER1_COST / GALLONS);
-            } else if (gallonsUsed <= TIER2_CUTOFF) {
-                bill = DUPLEX_BASE + DUPLEX_TIER1 * (DUPLEX_TIER1_COST / GALLONS)
-                        + (gallonsUsed - DUPLEX_TIER1) * (DUPLEX_TIER2_COST /
-                        GALLONS);
-            } else {
-                bill = DUPLEX_BASE + DUPLEX_TIER1 * (DUPLEX_TIER1_COST / GALLONS)
-                        + DUPLEX_TIER2 * (DUPLEX_TIER2_COST / GALLONS)
-                        + (gallonsUsed - TIER2_CUTOFF) * (DUPLEX_TIER3_COST /
-                        GALLONS);
-            }
-        }
+
+    protected double applyDiscount(double calculatedBill)
+    {
+        return calculatedBill;
+    }
+
+    public void generateBill()
+    {
+        double calculated = calculateBill();
+        double finalBill = applyDiscount(calculated);
+
+        this.bill = finalBill;
+
+        registerCustomer();
     }
 
     public void printBill(){
         System.out.println("The bill is " + bill);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Name " + getName();
+    }
+
+    static public Customer getHighestCustomer()
+    {
+        for (int i = 0; i < Customer.getAllCustomers().toArray().length; i++)
+        {
+            System.out.println("yay");
+        }
+
+        return null;
     }
 
 }
@@ -163,3 +166,9 @@ public class Customer {
 // if you understand the code it shouldn't be too hard
 
 //all open note no internet
+
+
+// should get class day 1
+// curve ball day 2
+// getters and setters
+//
